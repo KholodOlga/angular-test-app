@@ -1,0 +1,8 @@
+.movie {
+  &:hover {
+    cursor: pointer;
+  }
+}
+.selected-movie {
+  color: red;
+}
