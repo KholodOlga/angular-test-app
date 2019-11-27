@@ -1,0 +1,34 @@
+<div class="card">
+  <img src="{{movie.Poster}}" class="card-img-top" alt="data.Title">
+  <div class="card-body">
+    <h5 class="card-title">{{movie.Title}}</h5>
+    <ul>
+      <li>Year: {{movie.Year}}</li>
+      <li>Rated: {{movie.Rated}}</li>
+      <li>Released: {{movie.Released}}</li>
+      <li>Runtime: {{movie.Runtime}}</li>
+      <li>Genre: {{movie.Genre}}</li>
+      <li>Director: {{movie.Director}}</li>
+      <li>Writer: {{movie.Writer}}</li>
+      <li>Actors: {{movie.Actors}}</li>
+      <li>Plot: {{movie.Plot}}</li>
+      <li>Language: {{movie.Language}}</li>
+      <li>Country: {{movie.Country}}</li>
+      <li>Awards: {{movie.Awards}}</li>
+      <li>Ratings:
+        <ul>
+          <li *ngFor="let i of movie.Ratings">{{i.Source}}: {{i.Value}}</li>
+        </ul>
+      </li>
+      <li>Metascore: {{movie.Metascore}}</li>
+      <li>imdbRating: {{movie.imdbRating}}</li>
+      <li>imdbVotes: {{movie.imdbVotes}}</li>
+      <li>imdbID: {{movie.imdbID}}</li>
+      <li>Type: {{movie.Type}}</li>
+      <li>DVD: {{movie.DVD}}</li>
+      <li>BoxOffice: {{movie.BoxOffice}}</li>
+      <li>Production: {{movie.Production}}</li>
+      <li>Website: {{movie.Website}}</li>
+    </ul>
+  </div>
+</div>

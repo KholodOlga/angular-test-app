@@ -16,58 +16,58 @@
         </div>
 
       </div>
-      <div class="row mt-5">
-        <table *ngIf="movies" class="table">
-          <tr>
-            <th>Film title</th>
-            <th>Year</th>
-            <th>Poster</th>
-          </tr>
-          <tr *ngFor="let i of movies"
-              (click)="openFilm(i.imdbID)"
-              [class]="movie && (movie.imdbID === i.imdbID) ? 'selected-movie movie' : 'movie'">
-            <td><img src="{{i.Poster}}" alt="{{i.Title}}" height="180"></td>
-            <td>{{i.Title}}</td>
-            <td>{{i.Year}}</td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div *ngIf="movie" class="col-4">
-      <div class="card">
-        <img src="{{movie.Poster}}" class="card-img-top" alt="data.Title">
-        <div class="card-body">
-          <h5 class="card-title">{{movie.Title}}</h5>
-          <ul>
-            <li>Year: {{movie.Year}}</li>
-            <li>Rated: {{movie.Rated}}</li>
-            <li>Released: {{movie.Released}}</li>
-            <li>Runtime: {{movie.Runtime}}</li>
-            <li>Genre: {{movie.Genre}}</li>
-            <li>Director: {{movie.Director}}</li>
-            <li>Writer: {{movie.Writer}}</li>
-            <li>Actors: {{movie.Actors}}</li>
-            <li>Plot: {{movie.Plot}}</li>
-            <li>Language: {{movie.Language}}</li>
-            <li>Country: {{movie.Country}}</li>
-            <li>Awards: {{movie.Awards}}</li>
-            <li>Ratings:
-              <ul>
-                <li *ngFor="let i of movie.Ratings">{{i.Source}}: {{i.Value}}</li>
-              </ul>
-            </li>
-            <li>Metascore: {{movie.Metascore}}</li>
-            <li>imdbRating: {{movie.imdbRating}}</li>
-            <li>imdbVotes: {{movie.imdbVotes}}</li>
-            <li>imdbID: {{movie.imdbID}}</li>
-            <li>Type: {{movie.Type}}</li>
-            <li>DVD: {{movie.DVD}}</li>
-            <li>BoxOffice: {{movie.BoxOffice}}</li>
-            <li>Production: {{movie.Production}}</li>
-            <li>Website: {{movie.Website}}</li>
-          </ul>
+      <div *ngIf="!loadingMovies; else loading">
+        <div *ngIf="movies && movies.length">
+          <div class="row mt-5">
+            <app-paginator
+              [page]="page"
+              [pages]="pages"
+              (changePage)="goToPage($event)"
+            >
+            </app-paginator>
+          </div>
+          <div class="row">
+            <table class="table">
+              <tr>
+                <th>Film title</th>
+                <th>Year</th>
+                <th>Poster</th>
+              </tr>
+              <tr *ngFor="let i of movies"
+                  (click)="openFilm(i.imdbID)"
+                  [ngClass]="{'selected-movie': movie && (movie.imdbID === i.imdbID), 'movie': true}">
+                <td><img src="{{i.Poster}}" alt="{{i.Title}}" height="180"></td>
+                <td>{{i.Title}}</td>
+                <td>{{i.Year}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="row">
+            <app-paginator
+              [page]="page"
+              [pages]="pages"
+              (changePage)="goToPage($event)"
+            >
+            </app-paginator>
+          </div>
+        </div>
+        <div *ngIf="error">
+          <h3>{{ error }}</h3>
         </div>
       </div>
     </div>
+    <div *ngIf="!loadingMovie; else loading" class="col-4">
+      <app-movie-card
+        *ngIf="movie"
+        [movie]="movie"
+      >
+      </app-movie-card>
+    </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</ng-template>
